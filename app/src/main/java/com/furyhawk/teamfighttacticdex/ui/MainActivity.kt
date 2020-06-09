@@ -10,14 +10,16 @@ import androidx.ui.tooling.preview.Preview
 import com.furyhawk.teamfighttacticdex.TftApplication
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val appContainer = (application as TftApplication).container
+
+        val appContainer = (application as TftApplication).container
         setContent {
-            MaterialTheme {
-                Greeting("Android")
-            }
-//            TftApp(appContainer = appContainer)
+//            MaterialTheme {
+//                Greeting("Android")
+//            }
+            TftApp(appContainer = appContainer)
         }
     }
 }

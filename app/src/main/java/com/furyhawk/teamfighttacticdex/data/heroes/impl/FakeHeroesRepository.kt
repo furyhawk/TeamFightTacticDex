@@ -78,5 +78,5 @@ class FakeHeroesRepository(
     /**
      * 1/3 requests should fail loading
      */
-    private fun shouldRandomlyFail(): Boolean = Random.nextFloat() < 0.33f
+    private fun shouldRandomlyFail(): Boolean = Random.nextFloat() < 0.13f
 }

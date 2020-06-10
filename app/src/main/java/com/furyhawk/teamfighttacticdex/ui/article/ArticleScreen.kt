@@ -62,8 +62,8 @@ import com.furyhawk.teamfighttacticdex.ui.navigateTo
 import com.furyhawk.teamfighttacticdex.ui.state.UiState
 
 @Composable
-fun ArticleScreen(postId: String, postsRepository: HeroesRepository) {
-    val postsState = fetchPost(postId, postsRepository)
+fun ArticleScreen(postId: String, heroesRepository: HeroesRepository) {
+    val postsState = fetchPost(postId, heroesRepository)
     if (postsState is UiState.Success<Hero>) {
         ArticleScreen(postsState.data)
     }

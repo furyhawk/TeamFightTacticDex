@@ -32,7 +32,7 @@ sealed class Screen {
 object TftStatus {
     var currentScreen: Screen = Screen.Home
     val favorites = ModelList<String>()
-    val selectedTopics = ModelList<String>()
+//    val selectedTopics = ModelList<String>()
 }
 
 /**

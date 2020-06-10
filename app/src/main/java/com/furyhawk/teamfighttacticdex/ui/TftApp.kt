@@ -21,6 +21,7 @@ import androidx.ui.unit.dp
 import com.furyhawk.teamfighttacticdex.R
 import com.furyhawk.teamfighttacticdex.data.AppContainer
 import com.furyhawk.teamfighttacticdex.data.heroes.HeroesRepository
+import com.furyhawk.teamfighttacticdex.ui.article.ArticleScreen
 import com.furyhawk.teamfighttacticdex.ui.home.HomeScreen
 import com.furyhawk.teamfighttacticdex.ui.theme.TftTheme
 
@@ -43,10 +44,10 @@ private fun AppContent(
         Surface(color = MaterialTheme.colors.background) {
             when (screen) {
                 is Screen.Home -> HomeScreen(heroesRepository = heroesRepository)
-//                is Screen.Article -> ArticleScreen(
-//                        postId = screen.postId,
-//                        heroesRepository = heroesRepository
-//                )
+                is Screen.Article -> ArticleScreen(
+                        postId = screen.postId,
+                        heroesRepository = heroesRepository
+                )
             }
         }
     }
@@ -81,10 +82,7 @@ private fun TftLogo(modifier: Modifier = Modifier) {
             colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
         )
         Spacer(Modifier.preferredWidth(8.dp))
-        Image(
-            asset = vectorResource(R.drawable.ic_tft_logo),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface)
-        )
+        Text(text = "Team Fight Tactic Dex")
     }
 }
 
@@ -145,3 +143,26 @@ private fun DrawerButton(
         }
     }
 }
+
+@Preview("Drawer contents")
+@Composable
+fun PreviewJetnewsApp() {
+    ThemedPreview {
+        AppDrawer(
+            currentScreen = TftStatus.currentScreen,
+            closeDrawer = { }
+        )
+    }
+}
+
+@Preview("Drawer contents dark theme")
+@Composable
+fun PreviewJetnewsAppDark() {
+    ThemedPreview(darkTheme = true) {
+        AppDrawer(
+            currentScreen = TftStatus.currentScreen,
+            closeDrawer = { }
+        )
+    }
+}
+

@@ -19,10 +19,7 @@ package com.furyhawk.teamfighttacticdex.ui.home
 import androidx.compose.Composable
 import androidx.ui.core.Modifier
 import androidx.ui.core.clip
-import androidx.ui.foundation.Clickable
-import androidx.ui.foundation.Icon
-import androidx.ui.foundation.Image
-import androidx.ui.foundation.Text
+import androidx.ui.foundation.*
 import androidx.ui.layout.Column
 import androidx.ui.layout.Row
 import androidx.ui.layout.fillMaxSize
@@ -57,14 +54,14 @@ fun AuthorAndReadTime(
     Row(modifier) {
         ProvideEmphasis(EmphasisAmbient.current.medium) {
             val textStyle = MaterialTheme.typography.body2
-//            Text(
-//                text = post.metadata.author.name,
-//                style = textStyle
-//            )
-//            Text(
-//                text = " - ${post.metadata.readTimeMinutes} min read",
-//                style = textStyle
-//            )
+            Text(
+                text = post.metadata.author.name,
+                style = textStyle
+            )
+            Text(
+                text = " - ${post.metadata.readTimeMinutes} min read",
+                style = textStyle
+            )
         }
     }
 }
@@ -89,10 +86,8 @@ fun PostTitle(post: Hero) {
 
 @Composable
 fun PostCardSimple(post: Hero) {
-    Clickable(
-        modifier = Modifier.ripple(),
-        onClick = { navigateTo(Screen.Article(post.id)) }
-    ) {
+    Box(Modifier.ripple().clickable(onClick = { navigateTo(Screen.Article(post.id)) }
+    ), children = {
         Row(modifier = Modifier.padding(16.dp)) {
             PostImage(post, Modifier.padding(end = 16.dp))
             Column(modifier = Modifier.weight(1f)) {
@@ -104,15 +99,13 @@ fun PostCardSimple(post: Hero) {
                 onBookmark = { toggleBookmark(postId = post.id) }
             )
         }
-    }
+    })
 }
 
 @Composable
 fun PostCardHistory(post: Hero) {
-    Clickable(
-        modifier = Modifier.ripple(),
-        onClick = { navigateTo(Screen.Article(post.id)) }
-    ) {
+    Box(Modifier.ripple().clickable(onClick = { navigateTo(Screen.Article(post.id)) }
+    ), children = {
         Row(Modifier.padding(16.dp)) {
             PostImage(
                 post = post,
@@ -135,7 +128,7 @@ fun PostCardHistory(post: Hero) {
                 Icon(asset = Icons.Filled.MoreVert)
             }
         }
-    }
+    })
 }
 
 @Composable

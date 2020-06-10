@@ -19,9 +19,7 @@ package com.furyhawk.teamfighttacticdex.ui.home
 import androidx.compose.Composable
 import androidx.ui.core.ContentScale
 import androidx.ui.core.Modifier
-import androidx.ui.foundation.Clickable
-import androidx.ui.foundation.Image
-import androidx.ui.foundation.Text
+import androidx.ui.foundation.*
 import androidx.ui.layout.*
 import androidx.ui.material.Card
 import androidx.ui.material.EmphasisAmbient
@@ -45,10 +43,8 @@ fun PostCardPopular(post: Hero, modifier: Modifier = Modifier) {
     Card(
         shape = MaterialTheme.shapes.medium,
         modifier = modifier.preferredSize(280.dp, 240.dp)) {
-        Clickable(
-            modifier = Modifier.ripple(),
-            onClick = { navigateTo(Screen.Article(post.id)) }
-        ) {
+        Box(Modifier.ripple().clickable(onClick = { navigateTo(Screen.Article(post.id)) }
+        ), children = {
             Column {
                 val image = post.image ?: imageResource(R.drawable.placeholder_4_3)
                 Image(
@@ -83,7 +79,7 @@ fun PostCardPopular(post: Hero, modifier: Modifier = Modifier) {
                     }
                 }
             }
-        }
+        })
     }
 }
 

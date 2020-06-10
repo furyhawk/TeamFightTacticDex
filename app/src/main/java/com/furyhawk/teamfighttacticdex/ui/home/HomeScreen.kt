@@ -8,6 +8,7 @@ import androidx.compose.remember
 import androidx.compose.stateFor
 import androidx.core.os.postDelayed
 import androidx.ui.core.Alignment
+import androidx.ui.core.ContextAmbient
 import androidx.ui.core.Modifier
 import androidx.ui.foundation.*
 import androidx.ui.foundation.shape.corner.CircleShape
@@ -15,14 +16,13 @@ import androidx.ui.layout.*
 import androidx.ui.material.*
 import androidx.ui.material.ripple.ripple
 import androidx.ui.res.vectorResource
+import androidx.ui.tooling.preview.Preview
 import androidx.ui.unit.dp
 import com.furyhawk.teamfighttacticdex.R
 import com.furyhawk.teamfighttacticdex.data.heroes.HeroesRepository
+import com.furyhawk.teamfighttacticdex.data.heroes.impl.BlockingFakeHeroesRepository
 import com.furyhawk.teamfighttacticdex.model.Hero
-import com.furyhawk.teamfighttacticdex.ui.AppDrawer
-import com.furyhawk.teamfighttacticdex.ui.Screen
-import com.furyhawk.teamfighttacticdex.ui.SwipeToRefreshLayout
-import com.furyhawk.teamfighttacticdex.ui.navigateTo
+import com.furyhawk.teamfighttacticdex.ui.*
 import com.furyhawk.teamfighttacticdex.ui.state.*
 import com.furyhawk.teamfighttacticdex.ui.theme.snackbarAction
 
@@ -187,9 +187,9 @@ private fun HomeScreenTopSection(post: Hero) {
             style = MaterialTheme.typography.subtitle1
         )
     }
-    Clickable(modifier = Modifier.ripple(), onClick = { navigateTo(Screen.Article(post.id)) }) {
+    Box(Modifier.ripple().clickable(onClick = { navigateTo(Screen.Article(post.id)) }), children = {
         PostCardTop(post = post)
-    }
+    })
     HomeScreenDivider()
 }
 
@@ -239,4 +239,49 @@ private fun HomeScreenDivider() {
         modifier = Modifier.padding(horizontal = 14.dp),
         color = MaterialTheme.colors.onSurface.copy(alpha = 0.08f)
     )
+}
+
+@Preview("Home screen body")
+@Composable
+fun PreviewHomeScreenBody() {
+    ThemedPreview {
+        val posts = loadFakePosts()
+        HomeScreenBody(posts)
+    }
+}
+
+@Preview("Home screen, open drawer")
+@Composable
+private fun PreviewDrawerOpen() {
+    ThemedPreview {
+        HomeScreen(
+            heroesRepository = BlockingFakeHeroesRepository(ContextAmbient.current),
+            scaffoldState = ScaffoldState(drawerState = DrawerState.Opened)
+        )
+    }
+}
+
+@Preview("Home screen dark theme")
+@Composable
+fun PreviewHomeScreenBodyDark() {
+    ThemedPreview(darkTheme = true) {
+        val posts = loadFakePosts()
+        HomeScreenBody(posts)
+    }
+}
+
+@Preview("Home screen, open drawer dark theme")
+@Composable
+private fun PreviewDrawerOpenDark() {
+    ThemedPreview(darkTheme = true) {
+        HomeScreen(
+            heroesRepository = BlockingFakeHeroesRepository(ContextAmbient.current),
+            scaffoldState = ScaffoldState(drawerState = DrawerState.Opened)
+        )
+    }
+}
+
+@Composable
+private fun loadFakePosts(): List<Hero> {
+    return previewDataFrom(BlockingFakeHeroesRepository(ContextAmbient.current)::getHeroes)
 }

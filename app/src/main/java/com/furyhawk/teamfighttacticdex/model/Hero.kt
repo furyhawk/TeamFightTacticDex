@@ -3,6 +3,10 @@ package com.furyhawk.teamfighttacticdex.model
 import androidx.ui.graphics.ImageAsset
 
 data class Hero (
+    val championId: String? = null,
+    val name: String? = null,
+    val cost: Int? = null,
+    val traits: List<Traits> = emptyList(),
     val id: String,
     val title: String,
     val subtitle: String? = null,
@@ -14,6 +18,10 @@ data class Hero (
     val imageThumbId: Int,
     val image: ImageAsset? = null,
     val imageThumb: ImageAsset? = null
+)
+
+data class Traits(
+    val trait: String
 )
 
 data class Metadata(

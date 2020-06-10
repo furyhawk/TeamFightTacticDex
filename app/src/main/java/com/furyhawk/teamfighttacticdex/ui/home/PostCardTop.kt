@@ -60,17 +60,17 @@ fun PostCardTop(post: Hero) {
                 text = post.title,
                 style = typography.h6
             )
-//            Text(
-//                text = post.metadata.author.name,
-//                style = typography.body2
-//            )
+            Text(
+                text = post.metadata.author.name,
+                style = typography.body2
+            )
         }
-//        ProvideEmphasis(emphasisLevels.medium) {
-//            Text(
-//                text = "${post.metadata.date} - ${post.metadata.readTimeMinutes} min read",
-//                style = typography.body2
-//            )
-//        }
+        ProvideEmphasis(emphasisLevels.medium) {
+            Text(
+                text = "${post.metadata.date} - ${post.metadata.readTimeMinutes} min read",
+                style = typography.body2
+            )
+        }
     }
 }
 // TUTORIAL CONTENT ENDS HERE

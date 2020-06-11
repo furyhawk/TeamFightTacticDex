@@ -3,7 +3,9 @@ package com.furyhawk.teamfighttacticdex.data
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import androidx.ui.core.ContextAmbient
 import com.furyhawk.teamfighttacticdex.data.heroes.HeroesRepository
+import com.furyhawk.teamfighttacticdex.data.heroes.impl.BlockingFakeHeroesRepository
 import com.furyhawk.teamfighttacticdex.data.heroes.impl.FakeHeroesRepository
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -13,6 +15,7 @@ import java.util.concurrent.Executors
  */
 interface AppContainer {
     val heroesRepository: HeroesRepository
+//    val championRepository: ChampionRepository
 }
 
 /**
@@ -37,4 +40,12 @@ class AppContainerImpl(private val applicationContext: Context) : AppContainer {
                 resources = applicationContext.resources
         )
     }
+//    override val championRepository: ChampionRepository = ChampionRepository(AppDatabase.getInstance(applicationContext).championDao())
+//    override val championRepository: ChampionRepository by lazy {
+//        ChampionRepository.getInstance(
+//            AppDatabase.getInstance(applicationContext).championDao())
+//        BlockingFakeHeroesRepository(ContextAmbient.current).getHero(postId) { result ->
+//            hero = result.successOr(null)
+//        }
+//    }
 }

@@ -20,6 +20,7 @@ import androidx.ui.tooling.preview.Preview
 import androidx.ui.unit.dp
 import com.furyhawk.teamfighttacticdex.R
 import com.furyhawk.teamfighttacticdex.data.AppContainer
+import com.furyhawk.teamfighttacticdex.data.ChampionRepository
 import com.furyhawk.teamfighttacticdex.data.heroes.HeroesRepository
 import com.furyhawk.teamfighttacticdex.ui.article.ArticleScreen
 import com.furyhawk.teamfighttacticdex.ui.home.HomeScreen
@@ -31,6 +32,7 @@ fun TftApp(appContainer: AppContainer) {
     TftTheme {
         AppContent(
             heroesRepository = appContainer.heroesRepository
+//            ,            championRepository = appContainer.championRepository
         )
     }
 }
@@ -38,6 +40,7 @@ fun TftApp(appContainer: AppContainer) {
 @Composable
 private fun AppContent(
     heroesRepository: HeroesRepository
+//    championRepository: ChampionRepository
 ) {
 
     Crossfade(TftStatus.currentScreen) { screen ->

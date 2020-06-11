@@ -19,7 +19,7 @@ package com.furyhawk.teamfighttacticdex.data
 /**
  * Repository module for handling data operations.
  */
-class ChampionRepository private constructor(private val championDao: ChampionDao) {
+class ChampionRepository(private val championDao: ChampionDao) {
 
     fun getChampions() = championDao.getChampions()
 

@@ -16,23 +16,23 @@
 
 package com.furyhawk.teamfighttacticdex.data
 
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-
 /**
- * The Data Access Object for the Plant class.
+ * Repository module for handling data operations.
  */
-@Dao
-interface ChampionDao {
-    @Query("SELECT * FROM champions ORDER BY name")
-    fun getChampions(): LiveData<List<Champion>>
+class ChampionRepository private constructor(private val championDao: ChampionDao) {
 
-    @Query("SELECT * FROM champions WHERE id = :plantId")
-    fun getChampion(plantId: String): LiveData<Champion>
+    fun getChampions() = championDao.getChampions()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(plants: List<Champion>)
+    fun getChampion(plantId: String) = championDao.getChampion(plantId)
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: ChampionRepository? = null
+
+        fun getInstance(plantDao: ChampionDao) =
+                instance ?: synchronized(this) {
+                    instance ?: ChampionRepository(plantDao).also { instance = it }
+                }
+    }
 }

@@ -16,23 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         val appContainer = (application as TftApplication).container
         setContent {
-//            MaterialTheme {
-//                Greeting("Android")
-//            }
             TftApp(appContainer = appContainer)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MaterialTheme  {
-        Greeting("Android")
     }
 }

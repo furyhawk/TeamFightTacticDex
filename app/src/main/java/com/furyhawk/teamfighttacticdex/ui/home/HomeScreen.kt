@@ -7,6 +7,7 @@ import androidx.compose.onActive
 import androidx.compose.remember
 import androidx.compose.stateFor
 import androidx.core.os.postDelayed
+import androidx.lifecycle.LiveData
 import androidx.ui.core.Alignment
 import androidx.ui.core.ContextAmbient
 import androidx.ui.core.Modifier
@@ -19,6 +20,8 @@ import androidx.ui.res.vectorResource
 import androidx.ui.tooling.preview.Preview
 import androidx.ui.unit.dp
 import com.furyhawk.teamfighttacticdex.R
+import com.furyhawk.teamfighttacticdex.data.Champion
+import com.furyhawk.teamfighttacticdex.data.ChampionRepository
 import com.furyhawk.teamfighttacticdex.data.heroes.HeroesRepository
 import com.furyhawk.teamfighttacticdex.data.heroes.impl.BlockingFakeHeroesRepository
 import com.furyhawk.teamfighttacticdex.model.Hero
@@ -29,6 +32,7 @@ import com.furyhawk.teamfighttacticdex.ui.theme.snackbarAction
 @Composable
 fun HomeScreen(
     heroesRepository: HeroesRepository,
+    championRepository: ChampionRepository? = null,
     scaffoldState: ScaffoldState = remember { ScaffoldState() }
 ) {
     Scaffold(
@@ -50,7 +54,11 @@ fun HomeScreen(
             )
         },
         bodyContent = { modifier ->
-            HomeScreenContent(heroesRepository, modifier)
+            HomeScreenContent(
+                heroesRepository = heroesRepository,
+                championRepository = championRepository,
+                modifier = modifier
+            )
         }
     )
 }
@@ -59,9 +67,11 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenContent(
     heroesRepository: HeroesRepository,
+    championRepository: ChampionRepository? = null,
     modifier: Modifier = Modifier
 ) {
     val (postsState, refreshPosts) = refreshableUiStateFrom(heroesRepository::getHeroes)
+    val champions = championRepository?.getChampions()
 
     if (postsState.loading && !postsState.refreshing) {
         LoadingHomeScreen()
@@ -80,7 +90,8 @@ private fun HomeScreenContent(
                 state = postsState,
                 onErrorAction = {
                     refreshPosts()
-                }
+                },
+                champions = champions
             )
         }
     }
@@ -91,7 +102,8 @@ private fun HomeScreenContent(
 private fun HomeScreenBodyWrapper(
     modifier: Modifier = Modifier,
     state: RefreshableUiState<List<Hero>>,
-    onErrorAction: () -> Unit
+    onErrorAction: () -> Unit,
+    champions: LiveData<List<Champion>>? = null
 ) {
     // State for showing the Snackbar error. This state will reset with the content of the lambda
     // inside stateFor each time the RefreshableUiState input parameter changes.
@@ -102,7 +114,10 @@ private fun HomeScreenBodyWrapper(
 
     Stack(modifier = modifier.fillMaxSize()) {
         state.currentData?.let { posts ->
-            HomeScreenBody(posts = posts)
+            HomeScreenBody(
+                posts = posts,
+                champions = champions
+            )
         }
         ErrorSnackbar(
             showError = showSnackbarError,
@@ -116,7 +131,8 @@ private fun HomeScreenBodyWrapper(
 @Composable
 private fun HomeScreenBody(
     posts: List<Hero>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    champions: LiveData<List<Champion>>? = null
 ) {
     val postTop = posts[3]
     val postsSimple = posts.subList(0, 2)
@@ -125,6 +141,10 @@ private fun HomeScreenBody(
 
     VerticalScroller {
         Column(modifier) {
+            if (champions != null) {
+                HomeScreenChampion(champions)
+            }
+
             HomeScreenTopSection(postTop)
             HomeScreenSimpleSection(postsSimple)
             HomeScreenPopularSection(postsPopular)
@@ -132,6 +152,17 @@ private fun HomeScreenBody(
         }
     }
 }
+
+@Composable
+private fun HomeScreenChampion(posts: LiveData<List<Champion>>?) {
+    Column {
+//        posts.forEach { post ->
+//            PostCardChampion(post)
+//            HomeScreenDivider()
+//        }
+    }
+}
+
 
 @Composable
 private fun LoadingHomeScreen() {
@@ -202,6 +233,7 @@ private fun HomeScreenSimpleSection(posts: List<Hero>) {
         }
     }
 }
+
 @Composable
 private fun HomeScreenPopularSection(posts: List<Hero>) {
     Column {

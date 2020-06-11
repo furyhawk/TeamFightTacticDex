@@ -7,6 +7,7 @@ import androidx.ui.core.ContextAmbient
 import com.furyhawk.teamfighttacticdex.data.heroes.HeroesRepository
 import com.furyhawk.teamfighttacticdex.data.heroes.impl.BlockingFakeHeroesRepository
 import com.furyhawk.teamfighttacticdex.data.heroes.impl.FakeHeroesRepository
+import com.furyhawk.teamfighttacticdex.util.InjectorUtils
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors
  */
 interface AppContainer {
     val heroesRepository: HeroesRepository
-//    val championRepository: ChampionRepository
+    val championRepository: ChampionRepository
 }
 
 /**
@@ -35,13 +36,19 @@ class AppContainerImpl(private val applicationContext: Context) : AppContainer {
 
     override val heroesRepository: HeroesRepository by lazy {
         FakeHeroesRepository(
-                executorService = executorService,
-                resultThreadHandler = mainThreadHandler,
-                resources = applicationContext.resources
+            executorService = executorService,
+            resultThreadHandler = mainThreadHandler,
+            resources = applicationContext.resources
         )
     }
-//    override val championRepository: ChampionRepository = ChampionRepository(AppDatabase.getInstance(applicationContext).championDao())
+
+    override val championRepository: ChampionRepository = ChampionRepository.getInstance(
+        AppDatabase.getInstance(applicationContext.applicationContext).championDao()
+    )
 //    override val championRepository: ChampionRepository by lazy {
+//        ChampionRepository(context.applicationContext).championDao())
+//    }
+//}
 //        ChampionRepository.getInstance(
 //            AppDatabase.getInstance(applicationContext).championDao())
 //        BlockingFakeHeroesRepository(ContextAmbient.current).getHero(postId) { result ->

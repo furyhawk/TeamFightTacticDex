@@ -31,25 +31,28 @@ import com.furyhawk.teamfighttacticdex.ui.theme.TftTheme
 fun TftApp(appContainer: AppContainer) {
     TftTheme {
         AppContent(
-            heroesRepository = appContainer.heroesRepository
-//            ,            championRepository = appContainer.championRepository
+            heroesRepository = appContainer.heroesRepository,
+            championRepository = appContainer.championRepository
         )
     }
 }
 
 @Composable
 private fun AppContent(
-    heroesRepository: HeroesRepository
-//    championRepository: ChampionRepository
+    heroesRepository: HeroesRepository,
+    championRepository: ChampionRepository
 ) {
 
     Crossfade(TftStatus.currentScreen) { screen ->
         Surface(color = MaterialTheme.colors.background) {
             when (screen) {
-                is Screen.Home -> HomeScreen(heroesRepository = heroesRepository)
+                is Screen.Home -> HomeScreen(
+                    heroesRepository = heroesRepository,
+                    championRepository = championRepository
+                )
                 is Screen.Article -> ArticleScreen(
-                        postId = screen.postId,
-                        heroesRepository = heroesRepository
+                    postId = screen.postId,
+                    heroesRepository = heroesRepository
                 )
             }
         }
@@ -129,7 +132,8 @@ private fun DrawerButton(
             Row(
                 horizontalArrangement = Arrangement.Start,
                 verticalGravity = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()) {
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Image(
                     asset = icon,
                     colorFilter = ColorFilter.tint(textIconColor),

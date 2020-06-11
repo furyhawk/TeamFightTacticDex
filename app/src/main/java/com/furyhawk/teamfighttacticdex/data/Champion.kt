@@ -19,7 +19,6 @@ package com.furyhawk.teamfighttacticdex.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.furyhawk.teamfighttacticdex.model.Traits
 
 @Entity(tableName = "champions")
 data class Champion(
@@ -27,7 +26,7 @@ data class Champion(
     val championId: String,
     val name: String,
     val cost: Int,
-    val traits: List<Traits> = emptyList(),
+//    val traits: List<Traits> = emptyList(),
     val imageUrl: String? = ""
 ) {
 

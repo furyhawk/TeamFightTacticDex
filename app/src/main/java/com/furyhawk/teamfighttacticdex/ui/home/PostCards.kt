@@ -39,6 +39,7 @@ import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
 import androidx.ui.unit.dp
 import com.furyhawk.teamfighttacticdex.R
+import com.furyhawk.teamfighttacticdex.data.Champion
 import com.furyhawk.teamfighttacticdex.data.heroes.impl.hero1
 import com.furyhawk.teamfighttacticdex.model.Hero
 import com.furyhawk.teamfighttacticdex.ui.TftStatus
@@ -81,6 +82,23 @@ fun PostImage(post: Hero, modifier: Modifier = Modifier) {
 fun PostTitle(post: Hero) {
     ProvideEmphasis(EmphasisAmbient.current.high) {
         Text(post.title, style = MaterialTheme.typography.subtitle1)
+    }
+}
+
+@Composable
+fun PostCardChampion(post: Champion) {
+
+    Row(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.weight(1f)) {
+            PostChampion(post)
+        }
+    }
+
+}
+@Composable
+fun PostChampion(post: Champion) {
+    ProvideEmphasis(EmphasisAmbient.current.high) {
+        Text(post.name, style = MaterialTheme.typography.subtitle1)
     }
 }
 

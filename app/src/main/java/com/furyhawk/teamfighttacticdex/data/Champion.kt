@@ -28,7 +28,7 @@ data class Champion(
     val name: String,
     val cost: Int,
     val traits: List<Traits> = emptyList(),
-    val imageUrl: String = ""
+    val imageUrl: String? = ""
 ) {
 
     override fun toString() = name

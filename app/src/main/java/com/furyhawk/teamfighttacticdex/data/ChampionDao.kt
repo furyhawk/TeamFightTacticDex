@@ -30,9 +30,9 @@ interface ChampionDao {
     @Query("SELECT * FROM champions ORDER BY name")
     fun getChampions(): LiveData<List<Champion>>
 
-    @Query("SELECT * FROM champions WHERE id = :plantId")
-    fun getChampion(plantId: String): LiveData<Champion>
+    @Query("SELECT * FROM champions WHERE id = :championId")
+    fun getChampion(championId: String): LiveData<Champion>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(plants: List<Champion>)
+    suspend fun insertAll(champions: List<Champion>)
 }

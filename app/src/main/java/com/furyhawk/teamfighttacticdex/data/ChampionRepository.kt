@@ -23,7 +23,7 @@ class ChampionRepository private constructor(private val championDao: ChampionDa
 
     fun getChampions() = championDao.getChampions()
 
-    fun getChampion(plantId: String) = championDao.getChampion(plantId)
+    fun getChampion(championId: String) = championDao.getChampion(championId)
 
     companion object {
 

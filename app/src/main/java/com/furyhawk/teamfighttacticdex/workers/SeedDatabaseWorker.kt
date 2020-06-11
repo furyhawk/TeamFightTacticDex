@@ -21,7 +21,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.furyhawk.teamfighttacticdex.data.AppDatabase
-import com.furyhawk.teamfighttacticdex.model.Hero
+import com.furyhawk.teamfighttacticdex.data.Champion
 import com.furyhawk.teamfighttacticdex.util.PLANT_DATA_FILENAME
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -36,8 +36,8 @@ class SeedDatabaseWorker(
         try {
             applicationContext.assets.open(PLANT_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    val plantType = object : TypeToken<List<Hero>>() {}.type
-                    val championsList: List<Hero> = Gson().fromJson(jsonReader, plantType)
+                    val championType = object : TypeToken<List<Champion>>() {}.type
+                    val championsList: List<Champion> = Gson().fromJson(jsonReader, championType)
 
                     val database = AppDatabase.getInstance(applicationContext)
                     database.championDao().insertAll(championsList)

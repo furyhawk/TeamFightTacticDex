@@ -45,14 +45,5 @@ class AppContainerImpl(private val applicationContext: Context) : AppContainer {
     override val championRepository: ChampionRepository = ChampionRepository.getInstance(
         AppDatabase.getInstance(applicationContext.applicationContext).championDao()
     )
-//    override val championRepository: ChampionRepository by lazy {
-//        ChampionRepository(context.applicationContext).championDao())
-//    }
-//}
-//        ChampionRepository.getInstance(
-//            AppDatabase.getInstance(applicationContext).championDao())
-//        BlockingFakeHeroesRepository(ContextAmbient.current).getHero(postId) { result ->
-//            hero = result.successOr(null)
-//        }
-//    }
+
 }

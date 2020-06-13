@@ -141,8 +141,8 @@ private fun HomeScreenBody(
 
     VerticalScroller {
         Column(modifier) {
-            if (champions != null) {
-                HomeScreenChampion(champions)
+            if (!champions?.value.isNullOrEmpty()) {
+//                HomeScreenChampion(champions)
             }
 
             HomeScreenTopSection(postTop)
@@ -156,6 +156,11 @@ private fun HomeScreenBody(
 @Composable
 private fun HomeScreenChampion(posts: LiveData<List<Champion>>?) {
     Column {
+        if (posts != null) {
+            posts.value?.forEach { post ->
+                PostCardChampion(post)
+                HomeScreenDivider()  }
+        }
 //        posts.forEach { post ->
 //            PostCardChampion(post)
 //            HomeScreenDivider()

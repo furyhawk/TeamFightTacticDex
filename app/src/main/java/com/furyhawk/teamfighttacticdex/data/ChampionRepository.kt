@@ -30,9 +30,9 @@ class ChampionRepository(private val championDao: ChampionDao) {
         // For Singleton instantiation
         @Volatile private var instance: ChampionRepository? = null
 
-        fun getInstance(plantDao: ChampionDao) =
+        fun getInstance(championDao: ChampionDao) =
                 instance ?: synchronized(this) {
-                    instance ?: ChampionRepository(plantDao).also { instance = it }
+                    instance ?: ChampionRepository(championDao).also { instance = it }
                 }
     }
 }

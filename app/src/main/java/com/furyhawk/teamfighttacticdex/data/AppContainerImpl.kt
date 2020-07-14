@@ -15,7 +15,7 @@ import java.util.concurrent.Executors
  * Dependency Injection container at the application level.
  */
 interface AppContainer {
-    val heroesRepository: HeroesRepository
+//    val heroesRepository: HeroesRepository
     val championRepository: ChampionRepository
 }
 
@@ -34,13 +34,13 @@ class AppContainerImpl(private val applicationContext: Context) : AppContainer {
         Handler(Looper.getMainLooper())
     }
 
-    override val heroesRepository: HeroesRepository by lazy {
-        FakeHeroesRepository(
-            executorService = executorService,
-            resultThreadHandler = mainThreadHandler,
-            resources = applicationContext.resources
-        )
-    }
+//    override val heroesRepository: HeroesRepository by lazy {
+//        FakeHeroesRepository(
+//            executorService = executorService,
+//            resultThreadHandler = mainThreadHandler,
+//            resources = applicationContext.resources
+//        )
+//    }
 
     override val championRepository: ChampionRepository = ChampionRepository.getInstance(
         AppDatabase.getInstance(applicationContext.applicationContext).championDao()
